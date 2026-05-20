@@ -34,7 +34,7 @@ jobs:
       - name: Install Android NDK (r29 beta4)
         run: |
           cd $HOME
-          NDK_VERSION="r29-beta4"
+          NDK_VERSION="r30-beta1"
           NDK_ZIP="android-ndk-${NDK_VERSION}-linux.zip"
           curl -LO https://dl.google.com/android/repository/${NDK_ZIP}
           unzip ${NDK_ZIP}
