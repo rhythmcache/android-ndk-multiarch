@@ -602,49 +602,43 @@ build_llvm() {
         cd ../build
     fi
 
-
-    local LLVM_CMAKE_FLAGS=(
-    "${MINIMAL_CMAKE_FLAGS[@]}"
+local LLVM_CMAKE_FLAGS=(
+    "${COMMON_CMAKE_FLAGS[@]}"
     "-DCMAKE_CROSSCOMPILING=ON"
     "-DLLVM_TABLEGEN=$LLVM_TBLGEN"
     "-DCLANG_TABLEGEN=$CLANG_TBLGEN"
     "-DLLVM_DEFAULT_TARGET_TRIPLE=$CLANG_TRIPLE"
     "-DLLVM_TARGET_ARCH=$ARCH"
-    
+
     "-DLLVM_TARGETS_TO_BUILD=AArch64;ARM;X86;RISCV"
     "-DLLVM_ENABLE_PROJECTS=clang;lld"
-    
-    # Build configuration
+    "-DLLVM_BUILD_STATIC=OFF"       
+    "-DBUILD_SHARED_LIBS=OFF"           # static LLVM libs, dynamic exe linking
+
     "-DLLVM_BUILD_RUNTIME=OFF"
-    "-DLLVM_BUILD_STATIC=ON"
-    "-DBUILD_SHARED_LIBS=OFF"
-    
     "-DLLVM_INCLUDE_TESTS=OFF"
     "-DLLVM_INCLUDE_BENCHMARKS=OFF"
     "-DLLVM_INCLUDE_EXAMPLES=OFF"
     "-DLLVM_INCLUDE_DOCS=OFF"
-    
-    # Clang tools configuration - KEEP useful ones, disable problematic ones
-    "-DCLANG_BUILD_TOOLS=ON"                        # Keep most Clang tools
-    "-DCLANG_ENABLE_STATIC_ANALYZER=OFF"            # Disable static analyzer
-    "-DCLANG_ENABLE_ARCMT=OFF"                      # Disable ARC migration tool
-    "-DCLANG_TOOL_C_INDEX_TEST_BUILD=OFF"           # Disable c-index-test
-    "-DCLANG_TOOL_LIBCLANG_BUILD=OFF"               # Disable libclang
-    
-    # LLVM tools configuration  
-    "-DLLVM_BUILD_TOOLS=ON"                         # Keep LLVM tools
-    "-DLLVM_BUILD_UTILS=OFF"                        
-    
-    # Features configuration
-    "-DLLVM_ENABLE_LIBEDIT=OFF"                     
-    "-DLLVM_ENABLE_LIBXML2=ON"                      
-    "-DLLVM_ENABLE_ZLIB=ON"                         
-    
-    # Library paths
-    "-DLIBXML2_LIBRARY=$PREFIX/lib/libxml2.a"       # Only if you built libxml2
+
+    "-DCLANG_BUILD_TOOLS=ON"
+    "-DCLANG_ENABLE_STATIC_ANALYZER=OFF"
+    "-DCLANG_ENABLE_ARCMT=OFF"
+    "-DCLANG_TOOL_C_INDEX_TEST_BUILD=OFF"
+    "-DCLANG_TOOL_LIBCLANG_BUILD=OFF"
+
+    "-DLLVM_BUILD_TOOLS=ON"
+    "-DLLVM_BUILD_UTILS=OFF"
+
+    "-DLLVM_ENABLE_LIBEDIT=OFF"
+    "-DLLVM_ENABLE_LIBXML2=ON"
+    "-DLLVM_ENABLE_ZLIB=ON"
+    "-DLIBXML2_LIBRARY=$PREFIX/lib/libxml2.a"
     "-DLIBXML2_INCLUDE_DIR=$PREFIX/include/libxml2/libxml"
     "-DZLIB_LIBRARY=$PREFIX/lib/libz.a"
     "-DZLIB_INCLUDE_DIR=$PREFIX/include"
+
+    "-DCMAKE_EXE_LINKER_FLAGS=$LDFLAGS -L$PREFIX/lib -pie -Wl,-z,now"
 )
     
     echo "[+] Configuring LLVM with NDK-focused options..."
