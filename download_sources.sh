@@ -4,7 +4,7 @@ DOWNLOAD_DIR="${ROOT_DIR}/downloads"
 LOCK_FILE="${ROOT_DIR}/git-sources.lock"
 
 # Version definitions
-ZLIB_VERSION="zlib-1.3.1"
+ZLIB_VERSION="zlib-1.3.2"
 XZ_VERSION="xz-5.8.1"
 LIBFFI_VERSION="libffi-3.5.2"
 NCURSES_VERSION="ncurses-6.5"
