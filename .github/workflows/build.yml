@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        arch: [aarch64, x86, riscv64, armv7]
+        arch: [aarch64, x86, armv7]
       fail-fast: false
     steps:
       - name: Checkout repository
@@ -31,7 +31,7 @@ jobs:
           export PATH="$HOME/.local/bin:$PATH"
           pipx install meson
 
-      - name: Install Android NDK (r29 beta4)
+      - name: Install Android NDK
         run: |
           cd $HOME
           NDK_VERSION="r30-beta1"
