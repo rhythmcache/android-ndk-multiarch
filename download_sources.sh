@@ -4,13 +4,13 @@ DOWNLOAD_DIR="${ROOT_DIR}/downloads"
 LOCK_FILE="${ROOT_DIR}/git-sources.lock"
 
 # Version definitions
-ZLIB_VERSION="zlib-1.3.2"
+ZLIB_VERSION="1.3.2"
 XZ_VERSION="xz-5.8.1"
 LIBFFI_VERSION="libffi-3.5.2"
 NCURSES_VERSION="ncurses-6.5"
 
 # URL definitions for direct downloads
-ZLIB_URL="https://zlib.net/${ZLIB_VERSION}.tar.gz"
+ZLIB_URL="https://github.com/madler/zlib/releases/download/v${ZLIB_VERSION}/zlib-${ZLIB_VERSION}.tar.xz"
 XZ_URL="https://github.com/tukaani-project/xz/releases/download/v5.8.1/${XZ_VERSION}.tar.gz"
 LIBFFI_URL="https://github.com/libffi/libffi/releases/download/v3.5.2/${LIBFFI_VERSION}.tar.gz"
 NCURSES_URL="https://ftp.gnu.org/gnu/ncurses/${NCURSES_VERSION}.tar.gz"
